@@ -60,7 +60,7 @@ function execHandler(cb) {
     console.log(stdout);
     console.log(stderr);
     if (cb) cb();
-  }
+  };
 }
 
 function updateJSON(pkg, version) {
