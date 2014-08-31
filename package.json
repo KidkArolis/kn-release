@@ -1,6 +1,6 @@
 {
   "name": "kn-release",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "tag, push, and publish to npm and bower",
   "main": "./bin/release",
   "bin": {
