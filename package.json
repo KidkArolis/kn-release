@@ -1,6 +1,6 @@
 {
-  "name": "rf-release",
-  "version": "0.3.1",
+  "name": "kn-release",
+  "version": "1.0.0",
   "description": "tag, push, and publish to npm and bower",
   "main": "./bin/release",
   "bin": {
@@ -11,20 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rpflorence/rf-release.git"
+    "url": "https://github.com/KidkArolis/kn-release.git"
   },
   "keywords": [
     "release"
   ],
-  "author": "Ryan Florence",
+  "author": "Karolis Narkevicius",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rpflorence/rf-release/issues"
+    "url": "https://github.com/KidkArolis/kn-release/issues"
   },
-  "homepage": "https://github.com/rpflorence/rf-release",
+  "homepage": "https://github.com/KidkArolis/kn-release",
   "dependencies": {
     "prompt": "~0.2.11",
-    "cli-color": "~0.2.3",
-    "rf-changelog": "0.3.1"
+    "cli-color": "~0.2.3"
   }
 }
