@@ -45,8 +45,8 @@ cp README.md CHANGELOG.md index.js package.json build
 webpack index.js build/standalone.js
 
 # print out the size info
-echo "\nnpm build including deps is\n `bro-size build/index.js`"
-echo "\nnpm build excluding deps is\n `bro-size build/index.js -u react`"
+echo "\nnpm build including deps is\n `bro-size build`"
+echo "\nnpm build excluding deps is\n `bro-size build -u react`"
 ```
 
 What it does
