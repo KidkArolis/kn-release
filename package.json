@@ -7,7 +7,7 @@
     "release": "./bin/release"
   },
   "scripts": {
-    "test": "node test.js"
+    "test": "standard"
   },
   "repository": {
     "type": "git",
