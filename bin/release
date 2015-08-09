@@ -24,12 +24,14 @@ prompt.get(schema, function (err, result) {
   if (err) throw err
   var rawVersion = result.version
   var version = 'v' + rawVersion
-  updatePkgJSON(rawVersion)
   ex('npm test', function () {
+    updatePkgJSON(rawVersion)
     rebuild(function () {
-      commit(version, function () {
-        tag(version, function () {
-          publish(version)
+      add(function () {
+        commit(version, function () {
+          tag(version, function () {
+            publish(version)
+          })
         })
       })
     })
@@ -39,6 +41,14 @@ prompt.get(schema, function (err, result) {
 function rebuild (cb) {
   if (argv.build) {
     ex('npm run build', cb)
+  } else {
+    cb()
+  }
+}
+
+function add (cb) {
+  if (argv.build) {
+    ex('git add build', cb)
   } else {
     cb()
   }
