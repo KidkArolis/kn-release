@@ -3,6 +3,7 @@ var prompt = require('prompt')
 var fs = require('fs')
 var exec = require('child_process').exec
 var color = require('cli-color')
+var argv = require('minimist')(process.argv.slice(2))
 var cyan = color.cyan
 var yellow = color.yellow
 
@@ -23,19 +24,28 @@ prompt.get(schema, function (err, result) {
   if (err) throw err
   var rawVersion = result.version
   var version = 'v' + rawVersion
-  updateJSON('package', rawVersion)
-  updateJSON('bower', rawVersion)
+  updatePkgJSON(rawVersion)
   ex('npm test', function () {
-    commit(version, function () {
-      tag(version, function () {
-        publish(version)
+    rebuild(function () {
+      commit(version, function () {
+        tag(version, function () {
+          publish(version)
+        })
       })
     })
   })
 })
 
+function rebuild (cb) {
+  if (argv.build) {
+    ex('npm run build', cb)
+  } else {
+    cb()
+  }
+}
+
 function commit (version, cb) {
-  ex('git commit -am "release ' + version + '"', cb)
+  ex('git commit -am "Release ' + version + '"', cb)
 }
 
 function tag (version, cb) {
@@ -44,8 +54,12 @@ function tag (version, cb) {
 
 function publish (version) {
   ex('git push origin master', function () {
-    ex('git push origin ' + version, function () {
-      ex('npm publish')
+    ex('git push --tags ' + version, function () {
+      if (argv.build) {
+        ex('cd build && pwd && npm publish')
+      } else {
+        ex('npm publish')
+      }
     })
   })
 }
@@ -64,11 +78,8 @@ function execHandler (cb) {
   }
 }
 
-function updateJSON (pkg, version) {
-  var path = pkg + '.json'
-  if (!fs.existsSync(path)) {
-    return
-  }
+function updatePkgJSON (version) {
+  var path = 'package.json'
   var json = readJSON(path)
   json.version = version
   writeJSON(path, json)
@@ -91,4 +102,3 @@ function log () {
   var args = [].slice.call(arguments, 0)
   console.log.apply(console, [cyan('release:')].concat(args))
 }
-
