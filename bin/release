@@ -54,7 +54,7 @@ function tag (version, cb) {
 
 function publish (version) {
   ex('git push origin master', function () {
-    ex('git push --tags ' + version, function () {
+    ex('git push origin ' + version, function () {
       if (argv.build) {
         ex('cd build && pwd && npm publish')
       } else {
